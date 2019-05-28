@@ -1,0 +1,104 @@
+<div class="inventory-container">
+    <nav id="sidebar">
+        <div class="sidebar-header">
+            <h3>Generator</h3>
+        </div>
+
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs">
+            <li class="nav-item">
+                <a [ngClass]="{'active': state == 'page'}" class="nav-link" href="javascript:void(0)"
+                    (click)="changeTab('page')">Page</a>
+            </li>
+            <li class="nav-item">
+                <a [ngClass]="{'active': state == 'control'}" class="nav-link" href="javascript:void(0)"
+                    (click)="changeTab('control')">Control</a>
+            </li>
+        </ul>
+
+
+        <!-- Section of page tab -->
+        <div *ngIf="state=='page'">
+            <ul class="list-unstyled components">
+                <li *ngFor="let p of pages">
+                    <a href="javascript:void(0)" (click)="changePage(p)">{{p.name}}</a>
+                </li>
+            </ul>
+            <div class="sidebar-footer">
+                <button type="button" class="btn btn-default btn-lg active" (click)="addPage()">Add Page</button>
+            </div>
+        </div>
+
+        <!-- Section of control tab -->
+        <div *ngIf="state=='control'">
+            <div id="accordion">
+                <div class="card" *ngFor="let c of currentPage.body.controls">
+                    <div class="card-header" [attr.id]="'heading-'+c.type">
+                        <h5 class="mb-0">
+                            <button class="btn btn-link" data-toggle="collapse" [attr.data-target]="'#collapse-'+c.id"
+                                aria-expanded="true" [attr.aria-controls]="'collapse-'+c.id">
+                                {{c.name?c.name:c.type}}
+                            </button>
+                        </h5>
+                    </div>
+
+                    <!-- Button collapse-->
+                    <div *ngIf="c.type=='button'">
+                        <div [attr.id]="'collapse-'+c.id" class="collapse show"
+                            [attr.aria-labelledby]="'heading-'+c.type" data-parent="#accordion">
+                            <div class="card-body">
+                                <input type="text" [(ngModel)]="c.id">
+                                <input type="text" [(ngModel)]="c.name">
+                                <input type="text" [(ngModel)]="c.label">
+                                <input type="text" [(ngModel)]="c.font">
+                                <input type="text" [(ngModel)]="c.size">
+                                <input type="text" [(ngModel)]="c.textColor">
+                                <input type="text" [(ngModel)]="c.color">
+                                <input type="text" [(ngModel)]="c.link">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Text collapse-->
+                    <div *ngIf="c.type=='text'">
+                        <div [attr.id]="'collapse-'+c.id" class="collapse show"
+                            [attr.aria-labelledby]="'heading-'+c.type" data-parent="#accordion">
+                            <div class="card-body">
+                                <input type="text" [(ngModel)]="c.id">
+                                <input type="text" [(ngModel)]="c.name">
+                                <input type="text" [(ngModel)]="c.font">
+                                <input type="text" [(ngModel)]="c.size">
+                                <input type="text" [(ngModel)]="c.color">
+                                <input type="text" [(ngModel)]="c.backgroundColor">
+                                <input type="text" [(ngModel)]="c.link">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Image collapse-->
+                    <div *ngIf="c.type=='image'">
+                        <div [attr.id]="'collapse-'+c.id" class="collapse show"
+                            [attr.aria-labelledby]="'heading-'+c.type" data-parent="#accordion">
+                            <div class="card-body">
+                                <input type="text" [(ngModel)]="c.id">
+                                <input type="text" [(ngModel)]="c.name">
+                                <input type="text" [(ngModel)]="c.link">
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Add Control Section-->
+            <div class="sidebar-footer">
+                <div class="btn-group" role="group" aria-label="Basic example">
+                    <button type="button" class="btn btn-secondary" (click)="addControl('button')">Button</button>
+                    <button type="button" class="btn btn-secondary" (click)="addControl('image')">Image</button>
+                    <button type="button" class="btn btn-secondary" (click)="addControl('text')">Text</button>
+                </div>
+            </div>
+        </div>
+
+    </nav>
+</div>

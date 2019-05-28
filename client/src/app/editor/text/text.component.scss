@@ -1,0 +1,17 @@
+.text-container {
+    min-height: 100vh;
+}
+
+.form-container {
+    height: 100px;
+    width: 100px;
+    background-color: white;
+    float: left;
+    border-style: dashed;
+    border-width: 0.5px;
+}
+
+.input-container {
+    padding: 8px;
+    display: block;
+}

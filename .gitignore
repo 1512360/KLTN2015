@@ -1,0 +1,9 @@
+node_modules
+*.pyc
+*.pid
+chrome-ext/build
+server/.vscode/settings.json
+server/component/appeal/temp/
+server/gunicorn.log
+server/gunicorn.log.*
+server/.vscode

@@ -1,0 +1,30 @@
+<div sm-component modal-id="confirmation-modal" class="modal fade" tabindex="-1" role="dialog">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				<h4 class="modal-title">{{title}}</h4>
+			</div>
+			<div class="modal-body">
+				<p [innerHTML]="message"></p>
+			</div>
+			<div class="modal-footer">
+				<div class="right" *ngIf="type=='yesno'">
+					<button type="button" class="btn btn-default" (click)="cancel($event)">No</button>
+					<button *ngIf="!processing" type="button" class="btn btn-primary" (click)="ok($event)">Yes</button>
+					<button *ngIf="processing" type="button" class="btn btn-primary loading">Yes</button>
+				</div>
+				<div class="right" *ngIf="type=='okcancel'">
+					<button type="button" class="btn btn-default" (click)="cancel($event)">Cancel</button>
+					<button *ngIf="!processing" type="button" class="btn btn-primary" (click)="ok($event)">Ok</button>
+					<button *ngIf="processing" type="button" class="btn btn-primary loading">Ok</button>
+				</div>
+				<div class="right" *ngIf="type=='ok'">
+					<button *ngIf="!processing" type="button" class="btn btn-primary" (click)="ok($event)">Ok</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

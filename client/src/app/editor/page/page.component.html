@@ -1,0 +1,9 @@
+<div class="page-container" *ngIf="currentPage">
+	<div *ngFor="let c of currentPage.body.controls">
+        <div section *ngIf="c.type == 'section'"></div>
+        <div button *ngIf="c.type == 'button'" [model]="c"></div>
+        <div image *ngIf="c.type == 'image'" [model]="c"></div>
+        <div text *ngIf="c.type == 'text'" [model]="c"></div>
+    </div>
+
+</div>

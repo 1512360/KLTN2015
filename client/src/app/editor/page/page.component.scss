@@ -1,0 +1,32 @@
+.layout-container {
+    width: calc(100% - 250px);
+    padding: 40px;
+    min-height: 100vh;
+    transition: all 0.3s;
+    position: absolute;
+    top: 0;
+    right: 0;
+
+    &:nth-child(1) {
+        grid-area: a;
+    }
+
+    &:nth-child(2) {
+        grid-area: b;
+    }
+
+    &:nth-child(3) {
+        grid-area: c;
+    }
+
+    min-height: 100vh;
+}
+
+.item-container {
+    height: 100px;
+    width: 100px;
+    background-color: skyblue;
+    float: left;
+    border-style: dashed;
+    border-width: 0.5px;
+}
