@@ -28,6 +28,7 @@ export class Header {
 }
 
 export class Body {
+  public sections: Section[] = [];
   public controls: Control[] = [];
   
   //public name;
@@ -37,4 +38,11 @@ export class Body {
 export class Footer {
   //public name;
   //public link_background = '';
+}
+
+export class Section{
+  public type = 'section';
+  public name;
+  public width = 100;
+  public height;
 }

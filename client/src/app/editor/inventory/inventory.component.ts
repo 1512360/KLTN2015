@@ -14,7 +14,7 @@ export class InventoryComponent implements OnDestroy {
   
   loading = true;
   pages = [];
-  state = 'page'; 
+  state = 'page';
   currentPage; 
 
   constructor(private backendService: BackendService,

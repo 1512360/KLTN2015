@@ -47,30 +47,120 @@
                         <div [attr.id]="'collapse-'+c.id" class="collapse show"
                             [attr.aria-labelledby]="'heading-'+c.type" data-parent="#accordion">
                             <div class="card-body">
-                                <input type="text" [(ngModel)]="c.id">
-                                <input type="text" [(ngModel)]="c.name">
-                                <input type="text" [(ngModel)]="c.label">
-                                <input type="text" [(ngModel)]="c.font">
-                                <input type="text" [(ngModel)]="c.size">
-                                <input type="text" [(ngModel)]="c.textColor">
-                                <input type="text" [(ngModel)]="c.color">
-                                <input type="text" [(ngModel)]="c.link">
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" [attr.id]="'formGroup'+c.name">Name</span>
+                                    </div>
+                                    <input type="text" class="form-control" aria-label="Name"
+                                        [attr.aria-describedby]="'formGroup'+c.name" [(ngModel)]="c.name">
+                                </div>
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" [attr.id]="'formGroup'+c.label">Label</span>
+                                    </div>
+                                    <input type="text" class="form-control" aria-label="Label"
+                                        [attr.aria-describedby]="'formGroup'+c.label" [(ngModel)]="c.label">
+                                </div>
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" [attr.id]="'formGroup'+c.font">Font</span>
+                                    </div>
+                                    <input type="text" class="form-control" aria-label="Font"
+                                        [attr.aria-describedby]="'formGroup'+c.font" [(ngModel)]="c.font">
+                                </div>
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" [attr.id]="'formGroup'+c.fontSize">Font
+                                            Size</span>
+                                    </div>
+                                    <input type="text" class="form-control" aria-label="Font Size"
+                                        [attr.aria-describedby]="'formGroup'+c.fontSize" [(ngModel)]="c.fontSize">
+                                </div>
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" [attr.id]="'formGroup'+c.textColor">Text
+                                            Color</span>
+                                    </div>
+                                    <input type="text" class="form-control" aria-label="Text Color"
+                                        [attr.aria-describedby]="'formGroup'+c.textColor" [(ngModel)]="c.textColor">
+                                </div>
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" [attr.id]="'formGroup'+c.color">Color</span>
+                                    </div>
+                                    <input type="text" class="form-control" aria-label="Color"
+                                        [attr.aria-describedby]="'formGroup'+c.color" [(ngModel)]="c.color">
+                                </div>
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" [attr.id]="'formGroup'+c.link">Link</span>
+                                    </div>
+                                    <input type="text" class="form-control" aria-label="Link"
+                                        [attr.aria-describedby]="'formGroup'+c.link" [(ngModel)]="c.link">
+                                </div>
                             </div>
                         </div>
                     </div>
-                    
+
                     <!-- Text collapse-->
                     <div *ngIf="c.type=='text'">
                         <div [attr.id]="'collapse-'+c.id" class="collapse show"
                             [attr.aria-labelledby]="'heading-'+c.type" data-parent="#accordion">
                             <div class="card-body">
-                                <input type="text" [(ngModel)]="c.id">
-                                <input type="text" [(ngModel)]="c.name">
-                                <input type="text" [(ngModel)]="c.font">
-                                <input type="text" [(ngModel)]="c.size">
-                                <input type="text" [(ngModel)]="c.color">
-                                <input type="text" [(ngModel)]="c.backgroundColor">
-                                <input type="text" [(ngModel)]="c.link">
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" [attr.id]="'formGroup'+c.name">Name</span>
+                                    </div>
+                                    <input type="text" class="form-control" aria-label="Name"
+                                        [attr.aria-describedby]="'formGroup'+c.name" [(ngModel)]="c.name">
+                                </div>
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" [attr.id]="'formGroup'+c.border">Border</span>
+                                    </div>
+                                    <input type="text" class="form-control" aria-label="Border"
+                                        [attr.aria-describedby]="'formGroup'+c.border" [(ngModel)]="c.border">
+                                </div>
+                            <!-- Text Area Temp-->
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" [attr.id]="'formGroup'+c.textArea">Text Area</span>
+                                    </div>
+                                    <input type="text" class="form-control" aria-label="Text Area"
+                                        [attr.aria-describedby]="'formGroup'+c.textArea" [(ngModel)]="c.textArea">
+                                </div>
+
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" [attr.id]="'formGroup'+c.font">Font</span>
+                                    </div>
+                                    <input type="text" class="form-control" aria-label="Font"
+                                        [attr.aria-describedby]="'formGroup'+c.font" [(ngModel)]="c.font">
+                                </div>
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" [attr.id]="'formGroup'+c.fontSize">Font
+                                            Size</span>
+                                    </div>
+                                    <input type="text" class="form-control" aria-label="Font Size"
+                                        [attr.aria-describedby]="'formGroup'+c.fontSize" [(ngModel)]="c.fontSize">
+                                </div>
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"
+                                            [attr.id]="'formGroup'+c.backgroundColor">Background Color</span>
+                                    </div>
+                                    <input type="text" class="form-control" aria-label="Background Color"
+                                        [attr.aria-describedby]="'formGroup'+c.backgroundColor"
+                                        [(ngModel)]="c.backgroundColor">
+                                </div>
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" [attr.id]="'formGroup'+c.color">Color</span>
+                                    </div>
+                                    <input type="text" class="form-control" aria-label="Color"
+                                        [attr.aria-describedby]="'formGroup'+c.color" [(ngModel)]="c.color">
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -80,13 +170,23 @@
                         <div [attr.id]="'collapse-'+c.id" class="collapse show"
                             [attr.aria-labelledby]="'heading-'+c.type" data-parent="#accordion">
                             <div class="card-body">
-                                <input type="text" [(ngModel)]="c.id">
-                                <input type="text" [(ngModel)]="c.name">
-                                <input type="text" [(ngModel)]="c.link">
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" [attr.id]="'formGroup'+c.name">Name</span>
+                                    </div>
+                                    <input type="text" class="form-control" aria-label="Name"
+                                        [attr.aria-describedby]="'formGroup'+c.name" [(ngModel)]="c.name">
+                                </div>
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" [attr.id]="'formGroup'+c.color">Link</span>
+                                    </div>
+                                    <input type="text" class="form-control" aria-label="Link"
+                                        [attr.aria-describedby]="'formGroup'+c.link" [(ngModel)]="c.link">
+                                </div>
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
 
@@ -99,6 +199,5 @@
                 </div>
             </div>
         </div>
-
     </nav>
 </div>

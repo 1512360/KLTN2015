@@ -8,9 +8,7 @@ export class Control {
     public name;
 }
 
-export class Section extends Control {
-    public type = 'section';
-}
+
 
 export class Button extends Control {
     public type = 'button';
@@ -18,7 +16,7 @@ export class Button extends Control {
     public color = '#17a2b8';
     public font;
     public fontSize;
-    public textColor = '#FFFFFF';
+    public textColor = '#FFF';
     public width = 30;
     public height = 30;
     public x;
@@ -30,14 +28,14 @@ export class Text extends Control {
     public type = 'text';
     public color = '#000';
     public textArea = 'Text Here';
+    public border = "dashed 1px";
     public font;
     public fontSize;
-    public backgroundColor = '#000';
+    public backgroundColor = '#FFF';
     public width = 30;
     public height = 30;
     public x;
     public y;
-    public link;
 }
 
 export class Image extends Control {

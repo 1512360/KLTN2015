@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { EventStreamService, BackendService, CacheService, NotifyService } from '../../shared';
 
@@ -11,6 +11,8 @@ declare var InlineEditor;
   styleUrls: ['./section.component.scss']
 })
 export class SectionComponent implements OnDestroy {
+
+  @Input() section;
 
   loading = true;
 
@@ -31,5 +33,13 @@ export class SectionComponent implements OnDestroy {
   }
 
   render() {
+  }
+
+  sectionStyle() {
+    let sectionStyle = {
+        'width.%': this.section.width,
+        'height.%': this.section.height
+    }
+    return sectionStyle;
   }
 }

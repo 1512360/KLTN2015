@@ -33,20 +33,18 @@ export class TextComponent implements OnDestroy {
   }
 
   render() {
-    $(".text-container").sortable({ connectWith: ['.text-container'] });
-    $(".text-container").resizable({
-      containment: ".text-container",
-    });
   }
 
   txtStyle(){
     let txtStyle = {
       'background-color': this.model.backgroundColor,
       'color': this.model.color,
+      'border': this.model.border,
       'font': this.model.font,
       'font-size.px': this.model.fontSize,
       'width.%': this.model.width,
       'height.%': this.model.height
     }
+    return txtStyle;
   }
 }
