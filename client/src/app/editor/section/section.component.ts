@@ -16,6 +16,8 @@ export class SectionComponent implements OnDestroy {
 
   loading = true;
 
+  currentSection;
+
   constructor(private backendService: BackendService,
     private eventStreamService: EventStreamService,
     private cacheService: CacheService,
@@ -23,6 +25,10 @@ export class SectionComponent implements OnDestroy {
     private notifyService: NotifyService) {
 
     this.loading = false;
+
+    this.eventStreamService.on('changeSection').subscribe(event => {
+      this.currentSection = event;
+    });
 
     setTimeout(() => {
       this.render();

@@ -15,7 +15,6 @@ export class PageComponent implements OnDestroy {
 
   loading = true;
   currentPage;
-  sections = [];
 
   constructor(private backendService: BackendService,
     private eventStreamService: EventStreamService,
@@ -38,17 +37,7 @@ export class PageComponent implements OnDestroy {
   }
 
   render() {
-    this.addSection(3);
   }
 
-  addSection(n) {
-    console.log('hello');
-    for (var i = 0; i < n; i++){
-      let s = new Section();
-      s.name = 'New Section';
-      s.height = 30;
-      this.sections.push(s);
-    }
-    console.log(this.sections);
-  }
+  
 }

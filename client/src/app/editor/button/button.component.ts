@@ -1,6 +1,7 @@
-import { Component, OnInit, OnDestroy, Input } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input, HostListener } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { EventStreamService, BackendService, CacheService, NotifyService } from '../../shared';
+import { ResizeEvent } from 'angular-resizable-element';
 
 declare var $;
 declare var InlineEditor;
@@ -12,6 +13,7 @@ declare var InlineEditor;
 })
 export class ButtonComponent implements OnDestroy {
 
+  
   @Input() model;
 
   loading = true;
@@ -34,16 +36,24 @@ export class ButtonComponent implements OnDestroy {
 
   render() {
   }
+  
+  /*onResizeEnd(event: ResizeEvent): void {
+    console.log('Element was resized', event);
+  }*/
 
-  btnStyle(){
+  btnStyle() {
     let btnStyle = {
       'background-color': this.model.color,
       'font': this.model.font,
       'font-size.px': this.model.fontSize,
       'color': this.model.textColor,
-      'width.%': this.model.width,
-      'height.%': this.model.height,
+      'top.px': this.model.x,
+      'left.px': this.model.y,
+      'width.px': this.model.width,
+      'height.px': this.model.height,
     };
     return btnStyle;
   }
+
+  
 }

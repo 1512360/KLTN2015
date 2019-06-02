@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { EventStreamService, BackendService, CacheService, NotifyService } from '../../shared';
 import { Draggable, Sortable, Plugins } from '@shopify/draggable';
-import { Page } from '../modal/page.service';
+import { Page, Section } from '../modal/page.service';
 import { Button, Image, Text } from '../modal/control.service';
 
 @Component({
@@ -16,6 +16,8 @@ export class InventoryComponent implements OnDestroy {
   pages = [];
   state = 'page';
   currentPage; 
+  currentSection;
+  i: number = 0;
 
   constructor(private backendService: BackendService,
     private eventStreamService: EventStreamService,
@@ -33,6 +35,8 @@ export class InventoryComponent implements OnDestroy {
     let p = new Page();
     p.name = 'Blank Page';
     this.pages.push(p);
+
+    this.changePage(p);
   }
 
   changePage(p) {
@@ -40,23 +44,36 @@ export class InventoryComponent implements OnDestroy {
     this.eventStreamService.trigger('changePage', p);
   }
 
+  changeSection(s) {
+    this.currentSection = s;
+    this.eventStreamService.trigger('changeSection', s);
+  }
+
   changeTab(tab) {
     this.state = tab;
+  }
+
+  addSection() {
+      let s = new Section();
+      s.name = 'New Section ' + this.i.toString();
+      s.id = this.backendService.guid();
+      this.currentPage.body.sections.push(s);
+      this.i++;
   }
 
   addControl(type){
     if (type == 'button'){
       let btn = new Button();
       btn.id = this.backendService.guid();
-      this.currentPage.body.controls.push(btn);
+      this.currentSection.controls.push(btn);
     }else if (type == 'image'){
       let img = new Image();
       img.id = this.backendService.guid();
-      this.currentPage.body.controls.push(img);
+      this.currentSection.controls.push(img);
     }else if (type == 'text'){
       let txt = new Text();
       txt.id = this.backendService.guid();
-      this.currentPage.body.controls.push(txt);
+      this.currentSection.controls.push(txt);
     }
   }
 

@@ -11,13 +11,17 @@
                     (click)="changeTab('page')">Page</a>
             </li>
             <li class="nav-item">
+                <a [ngClass]="{'active': state == 'section'}" class="nav-link" href="javascript:void(0)"
+                    (click)="changeTab('section')">Section</a>
+            </li>
+            <li class="nav-item">
                 <a [ngClass]="{'active': state == 'control'}" class="nav-link" href="javascript:void(0)"
                     (click)="changeTab('control')">Control</a>
             </li>
         </ul>
 
 
-        <!-- Section of page tab -->
+        <!-- Inventory of page tab -->
         <div *ngIf="state=='page'">
             <ul class="list-unstyled components">
                 <li *ngFor="let p of pages">
@@ -29,10 +33,22 @@
             </div>
         </div>
 
-        <!-- Section of control tab -->
+        <!-- Inventory of section tab-->
+        <div *ngIf="state=='section'">
+            <ul class="list-unstyled components">
+                <li *ngFor="let s of currentPage.body.sections">
+                    <a href="javascript:void(0)" (click)="changeSection(s)">{{s.name}}</a>
+                </li>
+            </ul>
+            <div class="sidebar-footer">
+                <button type="button" class="btn btn-default btn-lg active" (click)="addSection(3)">Add Section</button>
+            </div>
+        </div>
+
+        <!-- Inventory of control tab -->
         <div *ngIf="state=='control'">
             <div id="accordion">
-                <div class="card" *ngFor="let c of currentPage.body.controls">
+                <div class="card" *ngFor="let c of currentSection.controls">
                     <div class="card-header" [attr.id]="'heading-'+c.type">
                         <h5 class="mb-0">
                             <button class="btn btn-link" data-toggle="collapse" [attr.data-target]="'#collapse-'+c.id"

@@ -1,3 +1,10 @@
-<div class="section-container" [ngStyle]="sectionStyle()" cdkDragBoundary=".page-container" cdkDrag>
-	
+<div class="section-container" [ngStyle]="sectionStyle()" *ngIf="currentSection">
+    <div *ngFor="let c of currentSection.controls">
+        <div button *ngIf="c.type == 'button'" [model]="c"></div>
+        <div image *ngIf="c.type == 'image'" [model]="c"></div>
+        <div text *ngIf="c.type == 'text'" [model]="c"></div>
+    </div>
 </div>
+
+<!--cdkDragBoundary=".page-container" cdkDrag
+-->

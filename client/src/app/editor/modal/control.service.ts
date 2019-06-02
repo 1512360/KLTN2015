@@ -17,10 +17,10 @@ export class Button extends Control {
     public font;
     public fontSize;
     public textColor = '#FFF';
-    public width = 30;
-    public height = 30;
-    public x;
-    public y;
+    public width = 100;
+    public height = 100;
+    public x = 0;
+    public y = 0;
     public link;
 }
 
