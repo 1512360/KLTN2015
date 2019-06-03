@@ -35,22 +35,32 @@ export class Button extends Control {
 }
 
 export class Text_input extends Control {
-  public type = 'input';
+  public type = 'text_input';
   public label = 'text input';
 }
 
+export class Number_input extends Control {
+  public type = 'number_input';
+  public label = 'number input';
+}
+
+export class File_input extends Control {
+  public type = 'file_input';
+  public label = 'file input';
+}
+
 export class Checkbox extends Control {
-  public type = 'button';
+  public type = 'checkbox';
   public label = 'checkbox';
 }
 
 export class Radio extends Control {
-  public type = 'button';
+  public type = 'radio';
   public label = 'radio';
 }
 
 export class Select extends Control {
-  public type = 'button';
+  public type = 'select';
   public label = 'select';
 }
 
