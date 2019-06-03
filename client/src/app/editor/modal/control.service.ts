@@ -34,6 +34,26 @@ export class Button extends Control {
     public link;
 }
 
+export class Text_input extends Control {
+  public type = 'input';
+  public label = 'text input';
+}
+
+export class Checkbox extends Control {
+  public type = 'button';
+  public label = 'checkbox';
+}
+
+export class Radio extends Control {
+  public type = 'button';
+  public label = 'radio';
+}
+
+export class Select extends Control {
+  public type = 'button';
+  public label = 'select';
+}
+
 export class Text extends Control {
     public type = 'text';
     public color = '#000';
