@@ -1,1 +1,1 @@
-<img [ngStyle]="imgStyle()" cdkDragBoundary=".page-container" cdkDrag>
+<img id="{{model.id}}" [ngStyle]="imgStyle()" cdkDragBoundary=".page-container" cdkDrag [class.control-selected]="model.hovered||model.selected">

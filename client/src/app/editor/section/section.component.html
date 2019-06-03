@@ -1,5 +1,7 @@
-<div class="section-container" [ngStyle]="sectionStyle()" *ngIf="currentSection">
-    <div *ngFor="let c of currentSection.controls">
+<div [attr.class]="'section ' + model.sizeGridView" [ngStyle]="sectionStyle()" [class.control-selected]="model.hovered||model.selected">
+    <div *ngFor="let c of model.controls" (mouseover)="c.hovered=true"
+    (mouseout)="c.hovered=false" (click)="selectControl(c)">
+        <div section *ngIf="c.type == 'section'" [model]="c"></div>
         <div button *ngIf="c.type == 'button'" [model]="c"></div>
         <div image *ngIf="c.type == 'image'" [model]="c"></div>
         <div text *ngIf="c.type == 'text'" [model]="c"></div>

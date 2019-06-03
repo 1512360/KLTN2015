@@ -13,7 +13,7 @@ declare var InlineEditor;
 export class ImageComponent implements OnDestroy {
 
   @Input() model;
-  
+
   loading = true;
 
   constructor(private backendService: BackendService,
@@ -33,5 +33,11 @@ export class ImageComponent implements OnDestroy {
   }
 
   render() {
+  }
+
+  imgStyle() {
+    let imgStyle = {
+    };
+    return imgStyle;
   }
 }

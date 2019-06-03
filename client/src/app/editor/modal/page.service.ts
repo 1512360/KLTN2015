@@ -6,13 +6,14 @@ import { Control } from './control.service';
 
 
 export class Page {
+  public type = 'page';
+  public id;
   public name;
 
   public header: Header = new Header();
   public body: Body = new Body();
-  public footer: Footer = new Footer();
 
-  
+
 
   //public link_background = '';
 }
@@ -22,30 +23,8 @@ export class Header {
 
   public scripts;
   public css;
-
-  //public name;
-  //public link_background = '';
 }
 
 export class Body {
-  public sections: Section[] = [];
-  //public controls: Control[] = [];
-  
-  //public name;
-  //public link_background = '';
-}
-
-export class Footer {
-  //public name;
-  //public link_background = '';
-}
-
-export class Section{
-  public type = 'section';
-  public id;
-  public name;
-  public float_left;
-  public width = 100;
-  public height = 100;
   public controls: Control[] = [];
 }

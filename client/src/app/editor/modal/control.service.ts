@@ -6,9 +6,20 @@ import { Draggable, Sortable, Plugins } from '@shopify/draggable';
 export class Control {
     public id;
     public name;
+    public selected = false;
+    public hovered = false;
 }
 
 
+
+export class Section extends Control {
+    public type = 'section';
+    public id;
+    public name;
+    public float_left;
+    public sizeGridView = '';
+    public controls: Control[] = [];
+}
 
 export class Button extends Control {
     public type = 'button';
@@ -17,8 +28,7 @@ export class Button extends Control {
     public font;
     public fontSize;
     public textColor = '#FFF';
-    public width = 100;
-    public height = 100;
+    public size = '';
     public x = 0;
     public y = 0;
     public link;

@@ -1,7 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { EventStreamService, BackendService, CacheService, NotifyService } from '../../shared';
-import { Section } from '../modal/page.service';
 
 declare var $;
 declare var InlineEditor;
@@ -15,6 +14,8 @@ export class PageComponent implements OnDestroy {
 
   loading = true;
   currentPage;
+  currentControl;
+  controlStack = [];
 
   constructor(private backendService: BackendService,
     private eventStreamService: EventStreamService,
@@ -24,7 +25,7 @@ export class PageComponent implements OnDestroy {
 
     this.loading = false;
 
-    this.eventStreamService.on('changePage').subscribe(event => {
+    this.eventStreamService.on('selectPage').subscribe(event => {
       this.currentPage = event;
     });
 
@@ -39,5 +40,23 @@ export class PageComponent implements OnDestroy {
   render() {
   }
 
-  
+  selectControl(c) {
+    if (this.currentControl) {
+      this.currentControl.selected = false;
+    }
+    this.currentControl = c;
+    this.currentControl.selected = true;
+    this.getControlStack();
+    this.eventStreamService.trigger('selectControl', c);
+  }
+
+  getControlStack() {
+    if (this.currentControl) {
+      if (this.controlStack.indexOf(this.currentControl) > -1) {
+        this.controlStack.slice(0, this.controlStack.indexOf(this.currentControl));
+      } else {
+        this.controlStack.push(this.currentControl);
+      }
+    }
+  }
 }

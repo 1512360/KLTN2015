@@ -1,12 +1,12 @@
 <div class="page-container" *ngIf="currentPage">
     <div class="row">
-        <div class="col-sm" *ngFor="let s of currentPage.body.sections">
-            <div section *ngIf="s.type == 'section'" [section]="s"></div>
+        <div class="col-sm" *ngFor="let c of currentPage.body.controls" (mouseover)="c.hovered=true" (mouseout)="c.hovered=false"
+            (click)="selectControl(c)">
+            <div section *ngIf="c.type == 'section'" [model]="c"></div>
+            <div button *ngIf="c.type == 'button'" [model]="c"></div>
+            <div image *ngIf="c.type == 'image'" [model]="c"></div>
+            <div text *ngIf="c.type == 'text'" [model]="c"></div>
         </div>
     </div>
-
-    <!--<div *ngFor="let s of currentPage.body.section">
-        <div section *ngIf="s.type == 'section'"></div>
-    </div>-->
-
+    <!-- -->
 </div>

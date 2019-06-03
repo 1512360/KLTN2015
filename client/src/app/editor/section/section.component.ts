@@ -12,11 +12,9 @@ declare var InlineEditor;
 })
 export class SectionComponent implements OnDestroy {
 
-  @Input() section;
-
-  loading = true;
-
-  currentSection;
+  @Input() model;
+  currentControl;
+  controlStack = [];
 
   constructor(private backendService: BackendService,
     private eventStreamService: EventStreamService,
@@ -24,15 +22,6 @@ export class SectionComponent implements OnDestroy {
     private route: ActivatedRoute,
     private notifyService: NotifyService) {
 
-    this.loading = false;
-
-    this.eventStreamService.on('changeSection').subscribe(event => {
-      this.currentSection = event;
-    });
-
-    setTimeout(() => {
-      this.render();
-    }, 500);
   }
 
   ngOnDestroy() {
@@ -43,9 +32,28 @@ export class SectionComponent implements OnDestroy {
 
   sectionStyle() {
     let sectionStyle = {
-        'width.%': this.section.width,
-        'height.%': this.section.height
+      'border': "dash 1px",
     }
     return sectionStyle;
+  }
+
+  selectControl(c) {
+    if (this.currentControl) {
+      this.currentControl.selected = false;
+    }
+    this.currentControl = c;
+    this.currentControl.selected = true;
+    this.getControlStack();
+    this.eventStreamService.trigger('selectControl', c);
+  }
+
+  getControlStack() {
+    if (this.currentControl) {
+      if (this.controlStack.indexOf(this.currentControl) > -1) {
+        this.controlStack.slice(0, this.controlStack.indexOf(this.currentControl));
+      } else {
+        this.controlStack.push(this.currentControl);
+      }
+    }
   }
 }

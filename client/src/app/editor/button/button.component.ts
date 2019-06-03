@@ -49,8 +49,6 @@ export class ButtonComponent implements OnDestroy {
       'color': this.model.textColor,
       'top.px': this.model.x,
       'left.px': this.model.y,
-      'width.px': this.model.width,
-      'height.px': this.model.height,
     };
     return btnStyle;
   }

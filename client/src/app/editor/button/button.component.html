@@ -1,4 +1,5 @@
-<button id="button" class="btn btn-info" [ngStyle]="btnStyle()" >
+<button id="{{model.id}}" [attr.class]="'btn btn-info ' + model.size" [ngStyle]="btnStyle()"
+    [class.control-selected]="model.hovered||model.selected">
     {{model.label}}
 </button>
 

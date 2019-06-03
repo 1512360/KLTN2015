@@ -2,8 +2,9 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { EventStreamService, BackendService, CacheService, NotifyService } from '../../shared';
 import { Draggable, Sortable, Plugins } from '@shopify/draggable';
-import { Page, Section } from '../modal/page.service';
-import { Button, Image, Text } from '../modal/control.service';
+import { Page } from '../modal/page.service';
+import { Button, Image, Text, Section } from '../modal/control.service';
+import { colSize } from '../modal/gridViews.item';
 
 @Component({
   selector: 'inventory',
@@ -11,13 +12,15 @@ import { Button, Image, Text } from '../modal/control.service';
   styleUrls: ['./inventory.component.scss']
 })
 export class InventoryComponent implements OnDestroy {
-  
+
   loading = true;
   pages = [];
+  controlStack = [];
   state = 'page';
-  currentPage; 
-  currentSection;
-  i: number = 0;
+  currentPage;
+  currentControl;
+  colSizeItems = colSize;
+  
 
   constructor(private backendService: BackendService,
     private eventStreamService: EventStreamService,
@@ -26,54 +29,98 @@ export class InventoryComponent implements OnDestroy {
     private notifyService: NotifyService) {
 
     this.loading = false;
+
+    this.eventStreamService.on('selectControl').subscribe(event => {
+      this.currentControl = event;
+    });
+
+    setTimeout(() => {
+      this.render();
+    }, 500);
   }
 
   ngOnDestroy() {
   }
 
+  render() {
+    console.log();
+  }
+
   addPage() {
     let p = new Page();
     p.name = 'Blank Page';
+    p.id = this.backendService.guid();
     this.pages.push(p);
-
-    this.changePage(p);
-  }
-
-  changePage(p) {
-    this.currentPage = p;
-    this.eventStreamService.trigger('changePage', p);
-  }
-
-  changeSection(s) {
-    this.currentSection = s;
-    this.eventStreamService.trigger('changeSection', s);
-  }
-
-  changeTab(tab) {
-    this.state = tab;
   }
 
   addSection() {
-      let s = new Section();
-      s.name = 'New Section ' + this.i.toString();
-      s.id = this.backendService.guid();
-      this.currentPage.body.sections.push(s);
-      this.i++;
+    let s = new Section();
+    s.name = 'Blank Section';
+    s.id = this.backendService.guid();
+    if (this.currentControl) {
+      this.currentControl.controls.push(s);
+    } else if (this.currentPage) {
+      this.currentPage.body.controls.push(s);
+    }
   }
 
-  addControl(type){
-    if (type == 'button'){
-      let btn = new Button();
-      btn.id = this.backendService.guid();
-      this.currentSection.controls.push(btn);
-    }else if (type == 'image'){
-      let img = new Image();
-      img.id = this.backendService.guid();
-      this.currentSection.controls.push(img);
-    }else if (type == 'text'){
-      let txt = new Text();
-      txt.id = this.backendService.guid();
-      this.currentSection.controls.push(txt);
+  selectHome() {
+    this.currentPage = null;
+    this.currentControl = null;
+    this.controlStack = [];
+  }
+
+  selectPage(p) {
+    this.currentPage = p;
+    if (this.currentControl) {
+      this.currentControl.selected = false;
+    }
+    this.currentControl = null;
+    this.controlStack = [];
+    this.eventStreamService.trigger('selectPage', p);
+  }
+
+  selectControl(s) {
+    if (this.currentControl) {
+      this.currentControl.selected = false;
+    }
+    this.currentControl = s;
+    this.currentControl.selected = true;
+    this.getControlStack();
+    this.eventStreamService.trigger('selectControl', s);
+  }
+
+  getControlStack() {
+    if (this.currentControl) {
+      if (this.controlStack.indexOf(this.currentControl) > -1) {
+        this.controlStack.slice(0, this.controlStack.indexOf(this.currentControl));
+      } else {
+        this.controlStack.push(this.currentControl);
+      }
+    }
+  }
+
+  addControl(type) {
+    let control;
+    if (type == 'button') {
+      control = new Button();
+      control.name = 'Button';
+      control.id = this.backendService.guid();
+    } else if (type == 'image') {
+      control = new Image();
+      control.name = 'Image';
+      control.id = this.backendService.guid();
+    } else if (type == 'text') {
+      control = new Text();
+      control.name = 'Text';
+      control.id = this.backendService.guid();
+    }
+    if (control) {
+      if (this.currentControl) {
+        this.currentControl.controls.push(control);
+      } else if (this.currentPage) {
+        this.currentPage.body.controls.push(control);
+      }
     }
   }
 

@@ -20,6 +20,24 @@
     background: #6d7fcc;
 }
 
+#sidebar .sidebar-path {
+    padding: 10px;
+    background: #926dcc;
+}
+
+#sidebar .sidebar-label {
+    padding: 10px;
+    background: #776dcc;
+}
+
+#sidebar .sidebar-setting {
+    padding: 0px;
+}
+
+#sidebar .sidebar-setting .input-group {
+    margin-bottom: 0px !important;
+}
+
 #sidebar .sidebar-footer {
     padding: 10px;
 }
@@ -29,8 +47,22 @@
 }
 
 #sidebar ul.components {
-    padding: 20px 0;
+    padding: 0px;
     border-bottom: 1px solid #47748b;
+}
+
+#sidebar ul.components li {
+    padding: 10px 10px;
+}
+
+#sidebar ul.components li:active,
+#sidebar ul.components li:hover {
+    background: #739ad5;
+}
+
+#sidebar ul.components li i {
+    float: right;
+    line-height: 1.5;
 }
 
 #sidebar ul li.active>a,

@@ -4,28 +4,25 @@
             <h3>Generator</h3>
         </div>
 
-        <!-- Nav tabs -->
-        <ul class="nav nav-tabs">
-            <li class="nav-item">
-                <a [ngClass]="{'active': state == 'page'}" class="nav-link" href="javascript:void(0)"
-                    (click)="changeTab('page')">Page</a>
-            </li>
-            <li class="nav-item">
-                <a [ngClass]="{'active': state == 'section'}" class="nav-link" href="javascript:void(0)"
-                    (click)="changeTab('section')">Section</a>
-            </li>
-            <li class="nav-item">
-                <a [ngClass]="{'active': state == 'control'}" class="nav-link" href="javascript:void(0)"
-                    (click)="changeTab('control')">Control</a>
-            </li>
-        </ul>
+        <!-- Inventory of Home -->
+        <div class="sidebar-path">
+            <span>
+                <a href="javascript:void(0)" (click)="selectHome()">Hone </a>
+            </span>
+            <span *ngIf="currentPage"><i class="fas fa-angle-right"></i>
+                <a href="javascript:void(0)" (click)="selectPage(currentPage)"> {{currentPage.name}} </a>
+            </span>
+            <span *ngFor="let s of controlStack; let i = index"><i class="fas fa-angle-right"></i>
+                <a href="javascript:void(0)" (click)="selectControl(s)"> {{s.name}} </a>
+            </span>
+        </div>
 
-
-        <!-- Inventory of page tab -->
-        <div *ngIf="state=='page'">
+        <!-- Inventory for Pages -->
+        <div *ngIf="!currentPage && !currentControl">
             <ul class="list-unstyled components">
-                <li *ngFor="let p of pages">
-                    <a href="javascript:void(0)" (click)="changePage(p)">{{p.name}}</a>
+                <li *ngFor="let p of pages" (click)="selectPage(p)">
+                    {{p.name}}
+                    <i class="fas fa-angle-right"></i>
                 </li>
             </ul>
             <div class="sidebar-footer">
@@ -33,185 +30,222 @@
             </div>
         </div>
 
-        <!-- Inventory of section tab-->
-        <div *ngIf="state=='section'">
+        <!-- Inventory for Controls-->
+        <div *ngIf="currentPage && !currentControl">
+            <div class="sidebar-label">
+                Children
+            </div>
             <ul class="list-unstyled components">
-                <li *ngFor="let s of currentPage.body.sections">
-                    <a href="javascript:void(0)" (click)="changeSection(s)">{{s.name}}</a>
+                <li *ngFor="let s of currentPage.body.controls" (click)="selectControl(s)">
+                    {{s.name}}
+                    <i class="fas fa-angle-right"></i>
                 </li>
             </ul>
             <div class="sidebar-footer">
-                <button type="button" class="btn btn-default btn-lg active" (click)="addSection(3)">Add Section</button>
-            </div>
-        </div>
-
-        <!-- Inventory of control tab -->
-        <div *ngIf="state=='control'">
-            <div id="accordion">
-                <div class="card" *ngFor="let c of currentSection.controls">
-                    <div class="card-header" [attr.id]="'heading-'+c.type">
-                        <h5 class="mb-0">
-                            <button class="btn btn-link" data-toggle="collapse" [attr.data-target]="'#collapse-'+c.id"
-                                aria-expanded="true" [attr.aria-controls]="'collapse-'+c.id">
-                                {{c.name?c.name:c.type}}
-                            </button>
-                        </h5>
-                    </div>
-
-                    <!-- Button collapse-->
-                    <div *ngIf="c.type=='button'">
-                        <div [attr.id]="'collapse-'+c.id" class="collapse show"
-                            [attr.aria-labelledby]="'heading-'+c.type" data-parent="#accordion">
-                            <div class="card-body">
-                                <div class="input-group mb-3">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text" [attr.id]="'formGroup'+c.name">Name</span>
-                                    </div>
-                                    <input type="text" class="form-control" aria-label="Name"
-                                        [attr.aria-describedby]="'formGroup'+c.name" [(ngModel)]="c.name">
-                                </div>
-                                <div class="input-group mb-3">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text" [attr.id]="'formGroup'+c.label">Label</span>
-                                    </div>
-                                    <input type="text" class="form-control" aria-label="Label"
-                                        [attr.aria-describedby]="'formGroup'+c.label" [(ngModel)]="c.label">
-                                </div>
-                                <div class="input-group mb-3">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text" [attr.id]="'formGroup'+c.font">Font</span>
-                                    </div>
-                                    <input type="text" class="form-control" aria-label="Font"
-                                        [attr.aria-describedby]="'formGroup'+c.font" [(ngModel)]="c.font">
-                                </div>
-                                <div class="input-group mb-3">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text" [attr.id]="'formGroup'+c.fontSize">Font
-                                            Size</span>
-                                    </div>
-                                    <input type="text" class="form-control" aria-label="Font Size"
-                                        [attr.aria-describedby]="'formGroup'+c.fontSize" [(ngModel)]="c.fontSize">
-                                </div>
-                                <div class="input-group mb-3">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text" [attr.id]="'formGroup'+c.textColor">Text
-                                            Color</span>
-                                    </div>
-                                    <input type="text" class="form-control" aria-label="Text Color"
-                                        [attr.aria-describedby]="'formGroup'+c.textColor" [(ngModel)]="c.textColor">
-                                </div>
-                                <div class="input-group mb-3">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text" [attr.id]="'formGroup'+c.color">Color</span>
-                                    </div>
-                                    <input type="text" class="form-control" aria-label="Color"
-                                        [attr.aria-describedby]="'formGroup'+c.color" [(ngModel)]="c.color">
-                                </div>
-                                <div class="input-group mb-3">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text" [attr.id]="'formGroup'+c.link">Link</span>
-                                    </div>
-                                    <input type="text" class="form-control" aria-label="Link"
-                                        [attr.aria-describedby]="'formGroup'+c.link" [(ngModel)]="c.link">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Text collapse-->
-                    <div *ngIf="c.type=='text'">
-                        <div [attr.id]="'collapse-'+c.id" class="collapse show"
-                            [attr.aria-labelledby]="'heading-'+c.type" data-parent="#accordion">
-                            <div class="card-body">
-                                <div class="input-group mb-3">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text" [attr.id]="'formGroup'+c.name">Name</span>
-                                    </div>
-                                    <input type="text" class="form-control" aria-label="Name"
-                                        [attr.aria-describedby]="'formGroup'+c.name" [(ngModel)]="c.name">
-                                </div>
-                                <div class="input-group mb-3">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text" [attr.id]="'formGroup'+c.border">Border</span>
-                                    </div>
-                                    <input type="text" class="form-control" aria-label="Border"
-                                        [attr.aria-describedby]="'formGroup'+c.border" [(ngModel)]="c.border">
-                                </div>
-                            <!-- Text Area Temp-->
-                                <div class="input-group mb-3">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text" [attr.id]="'formGroup'+c.textArea">Text Area</span>
-                                    </div>
-                                    <input type="text" class="form-control" aria-label="Text Area"
-                                        [attr.aria-describedby]="'formGroup'+c.textArea" [(ngModel)]="c.textArea">
-                                </div>
-
-                                <div class="input-group mb-3">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text" [attr.id]="'formGroup'+c.font">Font</span>
-                                    </div>
-                                    <input type="text" class="form-control" aria-label="Font"
-                                        [attr.aria-describedby]="'formGroup'+c.font" [(ngModel)]="c.font">
-                                </div>
-                                <div class="input-group mb-3">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text" [attr.id]="'formGroup'+c.fontSize">Font
-                                            Size</span>
-                                    </div>
-                                    <input type="text" class="form-control" aria-label="Font Size"
-                                        [attr.aria-describedby]="'formGroup'+c.fontSize" [(ngModel)]="c.fontSize">
-                                </div>
-                                <div class="input-group mb-3">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text"
-                                            [attr.id]="'formGroup'+c.backgroundColor">Background Color</span>
-                                    </div>
-                                    <input type="text" class="form-control" aria-label="Background Color"
-                                        [attr.aria-describedby]="'formGroup'+c.backgroundColor"
-                                        [(ngModel)]="c.backgroundColor">
-                                </div>
-                                <div class="input-group mb-3">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text" [attr.id]="'formGroup'+c.color">Color</span>
-                                    </div>
-                                    <input type="text" class="form-control" aria-label="Color"
-                                        [attr.aria-describedby]="'formGroup'+c.color" [(ngModel)]="c.color">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Image collapse-->
-                    <div *ngIf="c.type=='image'">
-                        <div [attr.id]="'collapse-'+c.id" class="collapse show"
-                            [attr.aria-labelledby]="'heading-'+c.type" data-parent="#accordion">
-                            <div class="card-body">
-                                <div class="input-group mb-3">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text" [attr.id]="'formGroup'+c.name">Name</span>
-                                    </div>
-                                    <input type="text" class="form-control" aria-label="Name"
-                                        [attr.aria-describedby]="'formGroup'+c.name" [(ngModel)]="c.name">
-                                </div>
-                                <div class="input-group mb-3">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text" [attr.id]="'formGroup'+c.color">Link</span>
-                                    </div>
-                                    <input type="text" class="form-control" aria-label="Link"
-                                        [attr.aria-describedby]="'formGroup'+c.link" [(ngModel)]="c.link">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Add Control Section-->
-            <div class="sidebar-footer">
                 <div class="btn-group" role="group" aria-label="Basic example">
+                    <button type="button" class="btn btn-secondary" (click)="addSection()">Section</button>
                     <button type="button" class="btn btn-secondary" (click)="addControl('button')">Button</button>
                     <button type="button" class="btn btn-secondary" (click)="addControl('image')">Image</button>
                     <button type="button" class="btn btn-secondary" (click)="addControl('text')">Text</button>
+                </div>
+            </div>
+        </div>
+
+        <div *ngIf="currentPage && currentControl && currentControl.type=='section'">
+            <div class="sidebar-label">
+                Settings
+            </div>
+            <div class="sidebar-setting">
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" [attr.id]="currentControl.id+'-name'">Name</span>
+                    </div>
+                    <input type="text" class="form-control" aria-label="Name" [(ngModel)]="currentControl.name">
+                </div>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" [attr.id]="currentControl.id+'-sizeGridView'">Size</span>
+                    </div>
+                    <select class="form-control" [(ngModel)]="currentControl.sizeGridView">
+                        <option value="" disabled selected>Choose size...</option>
+                        <optgroup *ngFor="let colType of colSizeItems" label="{{colType.type}}">
+                            <option *ngFor="let size of colType.size" [ngValue]="size.class">{{size.name}}
+                            </option>
+                        </optgroup>
+                    </select>
+                </div>
+            </div>
+            <div class="sidebar-label">
+                Children
+            </div>
+            <ul class="list-unstyled components">
+                <li *ngFor="let s of currentControl.controls" (click)="selectControl(s)">
+                    {{s.name}}
+                    <i class="fas fa-angle-right"></i>
+                </li>
+            </ul>
+            <div class="sidebar-footer">
+                <div class="btn-group" role="group" aria-label="Basic example">
+                    <button type="button" class="btn btn-secondary" (click)="addSection()">Section</button>
+                    <button type="button" class="btn btn-secondary" (click)="addControl('button')">Button</button>
+                    <button type="button" class="btn btn-secondary" (click)="addControl('image')">Image</button>
+                    <button type="button" class="btn btn-secondary" (click)="addControl('text')">Text</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Inventory of each control -->
+        <!--<div *ngIf="currentPage && currentControl && currentControl.type!='section'">-->
+        <div *ngIf="currentPage && currentControl && currentControl.type!='section' && currentControl.selected">
+            <div class="sidebar-label">
+                Settings
+            </div>
+
+            <!-- Button collapse-->
+            <div class="sidebar-setting" *ngIf="currentControl.type=='button'">
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" [attr.id]="'button-'+currentControl.id+'-name'">Name</span>
+                    </div>
+                    <input type="text" class="form-control" aria-label="Name"
+                        [attr.aria-describedby]="'formGroup'+currentControl.name" [(ngModel)]="currentControl.name">
+                </div>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" [attr.id]="'button-'+currentControl.id+'-label'">Label</span>
+                    </div>
+                    <input type="text" class="form-control" aria-label="Label"
+                        [attr.aria-describedby]="'formGroup'+currentControl.label" [(ngModel)]="currentControl.label">
+                </div>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" [attr.id]="'button-'+currentControl.id+'-font'">Font</span>
+                    </div>
+                    <input type="text" class="form-control" aria-label="Font"
+                        [attr.aria-describedby]="'formGroup'+currentControl.font" [(ngModel)]="currentControl.font">
+                </div>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" [attr.id]="'button-'+currentControl.id+'-fontsize'">Font
+                            Size</span>
+                    </div>
+                    <input type="text" class="form-control" aria-label="Font Size"
+                        [attr.aria-describedby]="'formGroup'+currentControl.fontSize"
+                        [(ngModel)]="currentControl.fontSize">
+                </div>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" [attr.id]="'button-'+currentControl.id+'-textcolor'">Text
+                            Color</span>
+                    </div>
+                    <input type="text" class="form-control" aria-label="Text Color"
+                        [attr.aria-describedby]="'formGroup'+currentControl.textColor"
+                        [(ngModel)]="currentControl.textColor">
+                </div>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"
+                            [attr.id]="'button-'+currentControl.id+'-backgroundcolor'">Color</span>
+                    </div>
+                    <input type="text" class="form-control" aria-label="Color"
+                        [attr.aria-describedby]="'formGroup'+currentControl.color" [(ngModel)]="currentControl.color">
+                </div>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" [attr.id]="'button-'+currentControl.id+'-size'">Size</span>
+                    </div>
+                    <select class="form-control" [(ngModel)]="currentControl.size">
+                        <option value="" disabled selected>Choose size...</option>
+                        <option value="btn-sm">Small</option>
+                        <option value=" ">Default</option>
+                        <option value="btn-lg">Large</option>
+                    </select>
+                </div>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" [attr.id]="'button-'+currentControl.id+'-link'">Link</span>
+                    </div>
+                    <input type="text" class="form-control" aria-label="Link"
+                        [attr.aria-describedby]="'formGroup'+currentControl.link" [(ngModel)]="currentControl.link">
+                </div>
+            </div>
+
+            <!-- Text collapse-->
+            <div class="sidebar-setting" *ngIf="currentControl.type=='text'">
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" [attr.id]="'text-'+currentControl.id+'-name'">Name</span>
+                    </div>
+                    <input type="text" class="form-control" aria-label="Name"
+                        [attr.aria-describedby]="'formGroup'+currentControl.name" [(ngModel)]="currentControl.name">
+                </div>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" [attr.id]="'formGroup'+currentControl.border">Border</span>
+                    </div>
+                    <input type="text" class="form-control" aria-label="Border"
+                        [attr.aria-describedby]="'formGroup'+currentControl.border" [(ngModel)]="currentControl.border">
+                </div>
+                <!-- Text Area Temp-->
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" [attr.id]="'formGroup'+currentControl.textArea">Text
+                            Area</span>
+                    </div>
+                    <input type="text" class="form-control" aria-label="Text Area"
+                        [attr.aria-describedby]="'formGroup'+currentControl.textArea"
+                        [(ngModel)]="currentControl.textArea">
+                </div>
+
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" [attr.id]="'formGroup'+currentControl.font">Font</span>
+                    </div>
+                    <input type="text" class="form-control" aria-label="Font"
+                        [attr.aria-describedby]="'formGroup'+currentControl.font" [(ngModel)]="currentControl.font">
+                </div>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" [attr.id]="'formGroup'+currentControl.fontSize">Font
+                            Size</span>
+                    </div>
+                    <input type="text" class="form-control" aria-label="Font Size"
+                        [attr.aria-describedby]="'formGroup'+currentControl.fontSize"
+                        [(ngModel)]="currentControl.fontSize">
+                </div>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" [attr.id]="'formGroup'+currentControl.backgroundColor">Background
+                            Color</span>
+                    </div>
+                    <input type="text" class="form-control" aria-label="Background Color"
+                        [attr.aria-describedby]="'formGroup'+currentControl.backgroundColor"
+                        [(ngModel)]="currentControl.backgroundColor">
+                </div>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" [attr.id]="'formGroup'+currentControl.color">Color</span>
+                    </div>
+                    <input type="text" class="form-control" aria-label="Color"
+                        [attr.aria-describedby]="'formGroup'+currentControl.color" [(ngModel)]="currentControl.color">
+                </div>
+            </div>
+
+            <!-- Image collapse-->
+            <div class="sidebar-setting" *ngIf="currentControl.type=='image'">
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" [attr.id]="'formGroup'+currentControl.name">Name</span>
+                    </div>
+                    <input type="text" class="form-control" aria-label="Name"
+                        [attr.aria-describedby]="'formGroup'+currentControl.name" [(ngModel)]="currentControl.name">
+                </div>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" [attr.id]="'formGroup'+currentControl.color">Link</span>
+                    </div>
+                    <input type="text" class="form-control" aria-label="Link"
+                        [attr.aria-describedby]="'formGroup'+currentControl.link" [(ngModel)]="currentControl.link">
                 </div>
             </div>
         </div>

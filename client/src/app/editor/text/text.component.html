@@ -1,1 +1,3 @@
-<div [ngStyle]="txtStyle()" placeholder="model.textArea" cdkDragBoundary=".page-container" cdkDrag>{{model.textArea}}</div>
+<div id="{{model.id}}" [ngStyle]="txtStyle()" placeholder="model.textArea" cdkDragBoundary=".page-container" cdkDrag [class.control-selected]="model.hovered||model.selected">
+    {{model.textArea}}
+</div>
