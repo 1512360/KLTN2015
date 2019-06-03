@@ -12,7 +12,7 @@ declare var InlineEditor;
 })
 export class FileInputComponent implements OnDestroy {
 
-  
+
   @Input() model;
 
   loading = true;
@@ -34,5 +34,17 @@ export class FileInputComponent implements OnDestroy {
   }
 
   render() {
+  }
+
+  inputStyle() {
+    let btnStyle = {
+      'background-color': this.model.color,
+      'font': this.model.font,
+      'font-size.px': this.model.fontSize,
+      'color': this.model.textColor,
+      'top.px': this.model.x,
+      'left.px': this.model.y,
+    };
+    return btnStyle;
   }
 }

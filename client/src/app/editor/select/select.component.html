@@ -1,0 +1,13 @@
+<select id="{{model.id}}" [attr.class]="'btn btn-info ' + model.size" [ngStyle]="btnStyle()"
+    [class.control-selected]="model.hovered||model.selected" name="">
+    <option value="{{model.label}}">{{model.label}}</option>
+    <option value="">Option 1</option>
+    <option value="">Option 2</option>
+    <option value="">Option 3</option>
+</select>
+
+<!--[ngStyle]="btnStyle()"
+    mwlResizable [enableGhostResize]="true"
+    [resizeEdges]="{bottom: true, right: true, top: true, left: true}" (resizeEnd)="onResizeEnd($event)"
+ cdkDragBoundary=".page-container" cdkDrag-->
+<!--style="width:100%; height:100%"-->
