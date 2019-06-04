@@ -1,5 +1,5 @@
 <select id="{{model.id}}" [attr.class]="'btn btn-info ' + model.size" [ngStyle]="btnStyle()"
-    [class.control-selected]="model.hovered||model.selected" name="">
+    [class.control-selected]="model.hovered||model.selected" name="{{model.name}}">
     <option value="{{model.label}}">{{model.label}}</option>
     <option value="">Option 1</option>
     <option value="">Option 2</option>

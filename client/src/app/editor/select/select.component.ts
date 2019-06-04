@@ -38,6 +38,9 @@ export class SelectComponent implements OnDestroy {
 
   btnStyle() {
     let btnStyle = {
+      'id' : this.model.id,
+      'name' : this.model.name,
+      'value' : this.model.value,
       'background-color': this.model.color,
       'font': this.model.font,
       'font-size.px': this.model.fontSize,

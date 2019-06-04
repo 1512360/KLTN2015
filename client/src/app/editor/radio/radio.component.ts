@@ -37,14 +37,14 @@ export class RadioComponent implements OnDestroy {
   }
 
   inputStyle() {
-    let btnStyle = {
-      'background-color': this.model.color,
-      'font': this.model.font,
-      'font-size.px': this.model.fontSize,
-      'color': this.model.textColor,
+    let inputStyle = {
+      'id' : this.model.id,
+      'value' : this.model.value,
+      'name' : this.model.name,
+      'label' : this.model.label,
       'top.px': this.model.x,
       'left.px': this.model.y,
     };
-    return btnStyle;
+    return inputStyle;
   }
 }

@@ -1,5 +1,5 @@
-<input id="{{model.id}}" [attr.class]="'btn btn-info ' + model.size" [ngStyle]="inputStyle()"
-    [class.control-selected]="model.hovered||model.selected" type="radio" name="" value=""> {{model.label}} </input>
+<input id="{{model.id}}" [attr.class]="'btn btn-info'" [ngStyle]="inputStyle()"
+    type="radio" name="{{model.name}}" value="{{model.value}}"> {{model.label}} </input>
 
 <!--[ngStyle]="btnStyle()"
     mwlResizable [enableGhostResize]="true"
